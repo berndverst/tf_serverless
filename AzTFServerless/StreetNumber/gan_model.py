@@ -1,7 +1,6 @@
 import os
 import operator
 import tensorflow as tf
-#import settings
 
 class GANModel:
     def __init__(self, model_dir):

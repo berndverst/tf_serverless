@@ -1,24 +1,20 @@
+import json
 import logging
 import os
 import sys
-import json
 
 import azure.functions as func
-
 from requests_toolbelt import MultipartDecoder
 
 from . import gan_model
 
 
-current_location = os.path.dirname(os.path.realpath(__file__))
 '''
 Declare global objects living across requests (TODO: investigate this)
 '''
-#model_dir = utils.create_model_dir()
 
+current_location = os.path.dirname(os.path.realpath(__file__))
 model_dir = os.path.dirname(os.path.realpath(__file__)) + '/model'
-
-#utils.download_model_from_bucket(model_dir)
 model = gan_model.GANModel(model_dir)
 
 
