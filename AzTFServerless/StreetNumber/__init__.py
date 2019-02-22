@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import sys
 
@@ -19,16 +18,18 @@ model = gan_model.GANModel(model_dir)
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
-    logging.info('AZ Function Post Request for Prediction')
+    '''
+    HTTP request handler for our Tensorflow prediction API.
 
+    Assumes a jpg or gif image is uploaded in a POST request body as multipart/form-data.
+    '''
     try:
         image_bytes = req.get_body()
-        #logging.info(f'{image_bytes}')
 
         content_type = req.headers.get("Content-Type")
         formdatadecoder = MultipartDecoder(image_bytes, content_type)
 
-        # assumes there is only one part (our file) being uploaded
+        # assumes there is only one part (our single image file) being uploaded
         for part in formdatadecoder.parts:
             resp_body = predict(part.content)
             break
@@ -41,10 +42,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
     except Exception as e:
         raise e
-        logging.error(e)
         return func.HttpResponse(
              "Either you did not post a compatible image or an unknown error occurred.",
-             status_code=400
+             status_code=500
         )
 
     return func.HttpResponse()
@@ -52,7 +52,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
 
 def predict(image_bytes):
     '''
-    Inferencing method
+    Inferencing method to retrieve prediction result from model.
     '''
 
     results = model.predict(image_bytes)

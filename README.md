@@ -1,10 +1,8 @@
-Deploys a TensorFlow model to Azure Functions for hosting an Inferencing API.
-
-Heavily relies on these instructions: https://docs.microsoft.com/azure/azure-functions/functions-create-first-function-python
+Deploys a TensorFlow model-based inferencing API to Azure Functions.
 
 ## Forked from https://github.com/Vetal1977/tf_aws_lambda
 
-This project is based on the above fork which deployed a TensorFlow model to AWS Lambda. This project shows how to do this on Azure Functions.
+This project is based on the above fork which deployed a TensorFlow model to AWS Lambda. This project shows how to do this on Azure Functions. For instructions, see [HowTo.md](HowTo.md).
 
 ### Serverless serving of a TensorFlow model on Azure Functions
 This is an extension of my [TensorFlow Serving test project](https://github.com/Vetal1977/tf_serving_example). It introduces a serverless serving of a sample GAN model, implemented with TensorFlow. It receives REST requests to predict [Street View House Numbers](http://ufldl.stanford.edu/housenumbers/).  
