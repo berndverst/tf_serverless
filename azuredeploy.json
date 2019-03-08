@@ -10,7 +10,6 @@
     }
   },
   "variables": {
-    "functionAppName": "[parameters('siteName')]",
     "hostingPlanName": "[concat(parameters('siteName'), '-plan')]",
     "applicationInsightsName": "[parameters('siteName')]",
     "storageName": "[concat('function', uniqueString(parameters('siteName')))]",
