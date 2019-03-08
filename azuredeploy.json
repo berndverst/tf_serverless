@@ -2,7 +2,7 @@
   "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "siteName": {
+    "appName": {
       "type": "string",
       "metadata": {
         "description": "The name of the function app that you wish to create."
@@ -10,20 +10,23 @@
     }
   },
   "variables": {
-    "hostingPlanName": "[concat(parameters('siteName'), '-plan')]",
-    "applicationInsightsName": "[parameters('siteName')]",
-    "storageName": "[concat('function', uniqueString(parameters('siteName')))]",
-    "contentShareName": "[toLower(parameters('siteName'))]",
+    "functionAppName": "[parameters('appName')]",
+    "hostingPlanName": "[concat(parameters('appName'), '-plan')]",
+    "applicationInsightsName": "[parameters('appName')]",
+    "storageName": "[concat('function', uniqueString(parameters('appName')))]",
+    "storageAccountName": "[concat('storage', uniquestring(resourceGroup().id))]",
+    "storageAccountid": "[concat(resourceGroup().id,'/providers/','Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+    "contentShareName": "[toLower(parameters('appName'))]",
     "repoUrl": "https://github.com/berndverst/tf_serverless",
     "branch": "master"
   },
   "resources": [
     {
       "apiVersion": "2016-03-01",
-      "name": "[parameters('siteName')]",
+      "name": "[parameters('appName')]",
       "type": "Microsoft.Web/sites",
       "properties": {
-        "name": "[parameters('siteName')]",
+        "name": "[parameters('appName')]",
         "siteConfig": {
           "appSettings": [
             {
@@ -64,7 +67,7 @@
           "name": "web",
           "type": "sourcecontrols",
           "dependsOn": [
-            "[resourceId('Microsoft.Web/Sites', parameters('siteName'))]"
+            "[resourceId('Microsoft.Web/Sites', parameters('appName'))]"
           ],
           "properties": {
             "RepoUrl": "[variables('repoURL')]",
