@@ -1,5 +1,9 @@
 Deploys a TensorFlow model-based inferencing API to Azure Functions.
 
+## Quick Deploy to Azure
+
+[![Deploy to Azure](http://azuredeploy.net/deploybutton.svg)](https://azuredeploy.net/)
+
 ## Forked from https://github.com/Vetal1977/tf_aws_lambda
 
 This project is based on the above fork which deployed a TensorFlow model to AWS Lambda. This project shows how to do this on Azure Functions. For instructions, see [HowTo.md](HowTo.md).
